@@ -25,3 +25,13 @@ if submitted:
   })
   st.session_state.expenses=pd.concat([st.session_state.expenses, new_expense], ignore_index=True)
   st.success("Expense added successfully!")
+
+if not st.session_state.expenses.empty:
+  st.subheader("Your expenses")
+  st.DataFrame(st.session_state.expenses)
+
+  st.subheader("Summary")
+  total_spent=st.session_state.expenses['Amount'].sum()
+  st.write(f"Total Spent: ${total_spent:2f}")
+
+category_total=st.session_state.expenses.groupby['Category']['Amount'].sum()
